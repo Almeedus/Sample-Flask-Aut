@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from models.user import User
 from database import db
-from flask_login import LoginManager, login_user, current_user
+from flask_login import LoginManager, login_user, current_user, logout_user, login_required
 
 app = Flask(__name__)
 app.config['SECRET_KEY']='your_secret_key'
@@ -17,7 +17,7 @@ login_manager.login_view = "login"
 #Função para recuperar o ID do usuário no banco de dados
 @login_manager.user_loader
 def load_user(user_id):
-     return User.query.get()
+     return User.query.get(user_id)
 
 @app.route("/login", methods =["POST"])
 def login():
@@ -35,6 +35,14 @@ def login():
                 return jsonify({"message":"Autenticação realizada com sucesso"}), 200
 
     return jsonify({"message":"Credenciais inválidas"}), 400
+
+
+#Para acessar essa rota, precisa estar autenticado anteriormente
+@app.route("/logout", methods=["GET"])
+@login_required #o decorator login_required faz com que essa rota só seja acessada se autenticado
+def logout():
+    logout_user()
+    return jsonify({"message": "Logout realizado com sucesso"}), 200
 
 
 @app.route("/hello-world", methods =["GET"])
