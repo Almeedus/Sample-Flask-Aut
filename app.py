@@ -5,7 +5,7 @@ from flask_login import LoginManager, login_user, current_user, logout_user, log
 
 app = Flask(__name__)
 app.config['SECRET_KEY']='your_secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:admin123@127.0.0.1:3306/flask-crud'
 
 login_manager = LoginManager()
 db.init_app(app)
@@ -57,7 +57,7 @@ def create_user():
         if userValidate and userValidate.password == password:
              return jsonify({"message":"usuário já existente"}), 409
         
-        user = User(username=username, password=password)
+        user = User(username=username, password=password, role='user')
         db.session.add(user)
         db.session.commit()
         return jsonify({"message":"Usuário cadastrado com sucesso"}), 200
@@ -82,11 +82,17 @@ def update_user(id_user):
     data = request.json
     user = User.query.get(id_user)
 
+    if current_user.role != "admin":
+        return jsonify({"message": "Operação não permitida."}), 403
+    
+    if id_user != current_user.id:
+        return jsonify({"message": "Atualização não permitida."}), 403
+    
     if user and data.get("password"):
         user.password = data.get("password")
         db.session.commit()
 
-        return jsonify({"message": f"Usuário {id_user} cadastrado com sucesso"}), 200
+        return jsonify({"message": f"Usuário {id_user} atualizado com sucesso"}), 200
     
     return jsonify({"message": "Usuário não encontrado"}), 404
 
@@ -96,6 +102,9 @@ def update_user(id_user):
 def delete_user(id_user):
     user = User.query.get(id_user)
 
+    if current_user.role != "admin":
+        return jsonify({"message": "Operação não permitida."}), 403
+    
     if id_user == current_user.id:
         return jsonify({"message": "Deleção não permitida"}), 403
 
