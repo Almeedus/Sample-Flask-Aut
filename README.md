@@ -13,9 +13,9 @@ git clone https://github.com/Almeedus/sample-flask-aut.git
 
 ### 📋 Pré-requisitos
 
-Python 3.12.2
-Docker 20.10.24
-Docker-compose 1.29.2
+* Python 3.12.2
+* Docker 20.10.24
+* Docker-compose 1.29.2
 
 ### 🔧 Instalação
 
@@ -63,7 +63,6 @@ python3 app.py
 Configure os endpoints em seu software de consumo de API de preferencia. 
 
 
-
 ## 🛠️ Construído com
 
 * [Python](https://docs.python.org/3/) - Linguagem utilizada
@@ -76,23 +75,7 @@ Configure os endpoints em seu software de consumo de API de preferencia.
 * [Pymysql](https://pymysql.readthedocs.io/en/latest/) - Usado para criar o banco de dados.
 * [Cryptography](https://cryptography.io/en/latest/) - Usado para criptografia de senhas.
 
-
-## ✒️ Autores
-
-
-* **Um desenvolvedor** - *Trabalho Inicial* - [umdesenvolvedor](https://github.com/linkParaPerfil)
-* **Fulano De Tal** - *Documentação* - [fulanodetal](https://github.com/linkParaPerfil)
-
-Você também pode ver a lista de todos os [colaboradores](https://github.com/usuario/projeto/colaboradores) que participaram deste projeto.
-
-
 ## 🎁 Expressões de gratidão
 
 * Conte a outras pessoas sobre este projeto 📢;
 * Convide alguém da equipe para uma cerveja 🍺;
-* Um agradecimento publicamente 🫂;
-* etc.
-
-
----
-⌨️ com ❤️ por [Armstrong Lohãns](https://gist.github.com/lohhans) 😊
